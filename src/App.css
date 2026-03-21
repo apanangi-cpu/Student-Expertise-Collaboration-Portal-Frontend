@@ -1,0 +1,168 @@
+/* ===== GLOBAL ===== */
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", Arial, sans-serif;
+  background: #eef4ff;
+  color: #1e293b;
+}
+
+/* ===== MAIN TITLE ===== */
+
+.main-title{
+  font-size:44px;
+  text-align:center;
+  font-weight:700;
+  color:#1e3a8a;
+  margin-top: 0px;
+}
+
+/* ===== BUTTONS ===== */
+
+button{
+  background:#2563eb;
+  color:white;
+  border:none;
+  padding:10px 18px;
+  border-radius:6px;
+  cursor:pointer;
+  font-weight:500;
+  transition:all .25s ease;
+}
+
+button:hover{
+  background:#1e40af;
+  transform:translateY(-2px);
+}
+
+/* ===== SEARCH INPUT ===== */
+
+input{
+  padding:12px;
+  border-radius:8px;
+  border:1px solid #dbeafe;
+  width:320px;
+  font-size:14px;
+  background:white;
+}
+
+input:focus{
+  outline:none;
+  border-color:#2563eb;
+  box-shadow:0 0 5px rgba(37,99,235,0.3);
+}
+
+/* ===== GRID ===== */
+
+.user-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
+  gap:25px;
+  margin-top:30px;
+}
+
+/* ===== USER CARDS ===== */
+
+.user-card{
+  background:white;
+  border-radius:12px;
+  padding:20px;
+  cursor:pointer;
+  border:1px solid #e2e8f0;
+  transition:all .25s ease;
+  box-shadow:0 4px 12px rgba(0,0,0,0.08);
+}
+
+.user-card h3{
+  color:#1e3a8a;
+  margin-top:0;
+}
+
+.user-card:hover{
+  transform:translateY(-6px);
+  box-shadow:0 10px 20px rgba(0,0,0,0.12);
+}
+
+/* ===== PROJECT CARDS ===== */
+
+.project-card{
+  background:white;
+  border-radius:10px;
+  padding:16px;
+  margin-bottom:15px;
+  border:1px solid #e2e8f0;
+  box-shadow:0 4px 10px rgba(0,0,0,0.06);
+}
+
+/* ===== LOGIN PAGE ===== */
+
+.login-container{
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  background:linear-gradient(135deg,#dbeafe,#bfdbfe);
+  padding-top:60px;
+}
+
+.login-box{
+  background:white;
+  padding:40px;
+  border-radius:12px;
+  box-shadow:0 8px 25px rgba(0,0,0,0.15);
+  width:320px;
+  margin-top:40px;
+}
+
+.login-box input{
+  width:95%;
+  margin-top:12px;
+}
+
+.login-box button{
+  margin-top:20px;
+}
+
+/* ===== DASHBOARD PANEL ===== */
+
+.project-panel{
+  background:white;
+  padding:25px;
+  border-radius:12px;
+  box-shadow:0 6px 18px rgba(0,0,0,0.1);
+}
+
+/* ===== PROJECT FORM ===== */
+
+.project-form input,
+.project-form textarea{
+  width:100%;
+  margin-bottom:12px;
+  padding:10px;
+  border-radius:6px;
+  border:1px solid #dbeafe;
+}
+
+.project-form textarea{
+  resize:none;
+}
+
+/* ===== LINKS ===== */
+
+a{
+  color:#2563eb;
+  font-weight:500;
+  text-decoration:none;
+}
+
+a:hover{
+  text-decoration:underline;
+}
+
+
+input[type="checkbox"]{
+  width:auto;
+  padding:0;
+  margin-right:8px;
+  transform:scale(1.2);
+}
