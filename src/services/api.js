@@ -19,7 +19,7 @@
 import axios from "axios";
 
 const API = axios.create({
-  baseURL: "https://student-expertise-collaboration-portal.onrender.com/api", // ✅ added /api
+  baseURL: "https://student-expertise-collaboration-portal.onrender.com/api"
 });
 
 // Attach token automatically
