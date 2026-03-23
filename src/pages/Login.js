@@ -87,7 +87,7 @@ return (
         />
 
         <br /><br />
-
+      <div className="login-inner"></div>
         <input
           type="password"
           name="password"

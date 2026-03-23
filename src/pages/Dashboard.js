@@ -400,6 +400,7 @@
 
 // export default Dashboard;
 
+
 import React, { useEffect, useState } from "react";
 import API from "../services/api";
 import { useNavigate } from "react-router-dom";
@@ -419,6 +420,7 @@ function Dashboard() {
 
   const navigate = useNavigate();
 
+  // 🔥 LOGOUT FUNCTION ADDED
   const handleLogout = () => {
     localStorage.removeItem("token");
     navigate("/");
@@ -504,6 +506,7 @@ function Dashboard() {
   return (
     <div style={{ padding: "40px" }}>
 
+      {/* 🔥 HEADER WITH LOGOUT */}
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
         <h1>Dashboard</h1>
 
@@ -522,6 +525,7 @@ function Dashboard() {
         </button>
       </div>
 
+      {/* Profile Section */}
       <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "30px" }}>
 
         <div style={{ flex: 1 }}>
@@ -537,6 +541,7 @@ function Dashboard() {
           <p><strong>Currently Working On:</strong> {user.currentlyWorkingOn}</p>
 
           <h4>Skills:</h4>
+
           <ul>
             {user.skills.map((skill, index) => (
               <li key={index}>{skill}</li>
@@ -547,7 +552,7 @@ function Dashboard() {
         <div style={{ marginRight: "80px" }}>
           {user.profilePhoto ? (
             <img
-              src={`https://student-expertise-collaboration-portal.onrender.com/uploads/${user.profilePhoto}`}
+              src={`http://localhost:5000/uploads/${user.profilePhoto}`}
               alt="Profile"
               style={{
                 width: "300px",
@@ -578,24 +583,108 @@ function Dashboard() {
 
       <hr />
 
+      {/* Projects */}
       <h2>Projects</h2>
 
-      <button onClick={() => setShowForm(true)}>
+      <button
+        onClick={() => setShowForm(true)}
+        style={{
+          background: "#2563eb",
+          color: "white",
+          border: "none",
+          padding: "10px 20px",
+          borderRadius: "6px",
+          cursor: "pointer",
+          marginBottom: "20px"
+        }}
+      >
         Add New Project
       </button>
 
+      {/* Modal */}
+      {showForm && (
+        <div style={{
+          position: "fixed",
+          top: 0,
+          left: 0,
+          width: "100%",
+          height: "100%",
+          background: "rgba(0,0,0,0.5)",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center"
+        }}>
+
+          <div style={{
+            background: "white",
+            padding: "30px",
+            borderRadius: "10px",
+            width: "500px"
+          }}>
+
+            <h3>Add New Project</h3>
+
+            <form onSubmit={handleAddProject}>
+              <input type="text" name="title" placeholder="Project Title" value={projectData.title} onChange={handleProjectChange} required />
+              <br /><br />
+
+              <textarea rows="5" style={{ width: "100%" }} name="description" placeholder="Project Description" value={projectData.description} onChange={handleProjectChange} required />
+              <br /><br />
+
+              <input type="text" name="technologies" placeholder="Technologies (React, Node)" value={projectData.technologies} onChange={handleProjectChange} />
+              <br /><br />
+
+              <input type="text" name="githubLink" placeholder="GitHub Link" value={projectData.githubLink} onChange={handleProjectChange} />
+              <br /><br />
+
+              <input type="text" name="demoLink" placeholder="Demo Link" value={projectData.demoLink} onChange={handleProjectChange} />
+              <br /><br />
+
+              <div className="checkbox-group">
+  <label>
+    <input
+      type="checkbox"
+      name="isCurrent"
+      checked={projectData.isCurrent}
+      onChange={handleProjectChange}
+    />
+    Mark as Current Project
+  </label>
+</div>
+
+              <br /><br />
+
+              <button type="submit">Add Project</button>
+              <button type="button" onClick={() => setShowForm(false)} style={{ marginLeft: "10px" }}>
+                Cancel
+              </button>
+
+            </form>
+
+          </div>
+        </div>
+      )}
+
+      {/* Current */}
+      <h3>Current Projects</h3>
+
       {currentProjects.map((project) => (
-        <div key={project._id}>
+        <div key={project._id} style={{ border: "1px solid gray", padding: "10px", marginBottom: "10px", borderRadius: "8px" }}>
           <h4>{project.title}</h4>
           <p>{project.description}</p>
+          <p><strong>Tech:</strong> {project.technologies.join(", ")}</p>
           <button onClick={() => handleDelete(project._id)}>Delete</button>
         </div>
       ))}
 
+      {/* Completed */}
+      <h3>Completed Projects</h3>
+
       {completedProjects.map((project) => (
-        <div key={project._id}>
+        <div key={project._id} style={{ border: "1px solid gray", padding: "10px", marginBottom: "10px", borderRadius: "8px" }}>
           <h4>{project.title}</h4>
           <p>{project.description}</p>
+          <p><strong>Tech:</strong> {project.technologies.join(", ")}</p>
           <button onClick={() => handleDelete(project._id)}>Delete</button>
         </div>
       ))}

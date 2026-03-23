@@ -41,9 +41,6 @@ function Profile() {
               objectFit: "cover",
               borderRadius: "12px",
               boxShadow: "0 4px 10px rgba(0,0,0,0.2)",
-              position: "absolute",
-              right: "50px",
-              top: "70px"
             }}
           />
         ) : (
