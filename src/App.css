@@ -3,8 +3,9 @@
 body {
   margin: 0;
   font-family: "Segoe UI", Arial, sans-serif;
-  background: #eef4ff;
+  background: #eef4ff; /* ✅ SAME BACKGROUND */
   color: #1e293b;
+  scroll-behavior: smooth;
 }
 
 /* ===== MAIN TITLE ===== */
@@ -15,41 +16,45 @@ body {
   font-weight:700;
   color:#1e3a8a;
   margin-top: 0px;
+  letter-spacing: 1px;
+  animation: fadeIn 1s ease;
 }
 
-/* ===== BUTTONS ===== */
+/* ===== BUTTONS (🔥 PREMIUM) ===== */
 
 button{
-  background:#2563eb;
+  background: linear-gradient(135deg,#2563eb,#1e40af);
   color:white;
   border:none;
   padding:10px 18px;
-  border-radius:6px;
+  border-radius:10px;
   cursor:pointer;
   font-weight:500;
-  transition:all .25s ease;
+  transition:all .3s ease;
+  box-shadow:0 4px 15px rgba(37,99,235,0.3);
 }
 
 button:hover{
-  background:#1e40af;
-  transform:translateY(-2px);
+  transform:translateY(-3px) scale(1.03);
+  box-shadow:0 8px 25px rgba(37,99,235,0.5);
 }
 
 /* ===== SEARCH INPUT ===== */
 
 input{
   padding:12px;
-  border-radius:8px;
+  border-radius:10px;
   border:1px solid #dbeafe;
   width:320px;
   font-size:14px;
   background:white;
+  transition:all .3s ease;
 }
 
 input:focus{
   outline:none;
   border-color:#2563eb;
-  box-shadow:0 0 5px rgba(37,99,235,0.3);
+  box-shadow:0 0 10px rgba(37,99,235,0.3);
 }
 
 /* ===== GRID ===== */
@@ -61,16 +66,18 @@ input:focus{
   margin-top:30px;
 }
 
-/* ===== USER CARDS ===== */
+/* ===== USER CARDS (🔥 MODERN EFFECT) ===== */
 
 .user-card{
   background:white;
-  border-radius:12px;
+  border-radius:16px;
   padding:20px;
   cursor:pointer;
   border:1px solid #e2e8f0;
-  transition:all .25s ease;
-  box-shadow:0 4px 12px rgba(0,0,0,0.08);
+  transition:all .35s ease;
+  box-shadow:0 6px 18px rgba(0,0,0,0.08);
+  position:relative;
+  overflow:hidden;
 }
 
 .user-card h3{
@@ -78,44 +85,71 @@ input:focus{
   margin-top:0;
 }
 
+/* ✨ LIGHT SWEEP EFFECT */
+.user-card::before{
+  content:"";
+  position:absolute;
+  top:0;
+  left:-100%;
+  width:100%;
+  height:100%;
+  background:linear-gradient(120deg,transparent,#dbeafe,transparent);
+  transition:0.6s;
+}
+
+.user-card:hover::before{
+  left:100%;
+}
+
 .user-card:hover{
-  transform:translateY(-6px);
-  box-shadow:0 10px 20px rgba(0,0,0,0.12);
+  transform:translateY(-10px) scale(1.02);
+  box-shadow:0 15px 35px rgba(0,0,0,0.15);
 }
 
 /* ===== PROJECT CARDS ===== */
 
 .project-card{
   background:white;
-  border-radius:10px;
+  border-radius:12px;
   padding:16px;
   margin-bottom:15px;
   border:1px solid #e2e8f0;
-  box-shadow:0 4px 10px rgba(0,0,0,0.06);
+  box-shadow:0 6px 18px rgba(0,0,0,0.08);
+  transition:0.3s;
 }
 
-/* ===== LOGIN PAGE ===== */
+.project-card:hover{
+  transform:scale(1.02);
+}
+
+/* ===== LOGIN PAGE (🔥 CENTER FIX + MODERN) ===== */
 
 .login-container{
   min-height:100vh;
   display:flex;
-  flex-direction:column;
-  align-items:center;
+  justify-content:center;
+  align-items:center; /* ✅ FIXED CENTER */
   background:linear-gradient(135deg,#dbeafe,#bfdbfe);
-  padding-top:60px;
 }
 
 .login-box{
   background:white;
   padding:40px;
-  border-radius:12px;
-  box-shadow:0 8px 25px rgba(0,0,0,0.15);
+  border-radius:16px;
+  box-shadow:0 15px 35px rgba(0,0,0,0.2);
   width:320px;
-  margin-top:40px;
+  transition:0.3s;
+  animation: slideUp 0.7s ease;
+  position:relative;
+  left:240px;
+}
+
+.login-box:hover{
+  transform:translateY(-5px);
 }
 
 .login-box input{
-  width:95%;
+  width:100%;
   margin-top:12px;
 }
 
@@ -128,8 +162,13 @@ input:focus{
 .project-panel{
   background:white;
   padding:25px;
-  border-radius:12px;
-  box-shadow:0 6px 18px rgba(0,0,0,0.1);
+  border-radius:16px;
+  box-shadow:0 10px 25px rgba(0,0,0,0.1);
+  transition:0.3s;
+}
+
+.project-panel:hover{
+  transform:translateY(-3px);
 }
 
 /* ===== PROJECT FORM ===== */
@@ -139,7 +178,7 @@ input:focus{
   width:100%;
   margin-bottom:12px;
   padding:10px;
-  border-radius:6px;
+  border-radius:8px;
   border:1px solid #dbeafe;
 }
 
@@ -153,16 +192,80 @@ a{
   color:#2563eb;
   font-weight:500;
   text-decoration:none;
+  transition:0.2s;
 }
 
 a:hover{
   text-decoration:underline;
+  color:#1e40af;
 }
 
+/* ===== CHECKBOX ===== */
 
 input[type="checkbox"]{
   width:auto;
   padding:0;
   margin-right:8px;
   transform:scale(1.2);
+}
+
+/* ===== NAVBAR (ADD THIS IF USING) ===== */
+
+.navbar{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  background:white;
+  padding:15px 30px;
+  border-radius:12px;
+  margin-bottom:30px;
+  box-shadow:0 4px 12px rgba(0,0,0,0.08);
+}
+
+.logo{
+  font-size:22px;
+  font-weight:700;
+  color:#2563eb;
+}
+
+/* ===== HERO SECTION ===== */
+
+.hero{
+  background:white;
+  padding:40px;
+  border-radius:20px;
+  max-width:800px;
+  margin:40px auto;
+  text-align:center;
+  box-shadow:0 10px 30px rgba(0,0,0,0.1);
+  transition:0.3s;
+}
+
+.hero:hover{
+  transform:translateY(-5px);
+  box-shadow:0 15px 40px rgba(0,0,0,0.15);
+}
+
+/* ===== ANIMATIONS ===== */
+
+@keyframes fadeIn{
+  from{
+    opacity:0;
+    transform:translateY(20px);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+
+@keyframes slideUp{
+  from{
+    opacity:0;
+    transform:translateY(60px);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
 }

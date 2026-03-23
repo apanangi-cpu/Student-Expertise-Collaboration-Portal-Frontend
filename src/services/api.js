@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const API = axios.create({
-  baseURL: "https://your-backend-url/api" || "http://localhost:5000/api"
+  baseURL: "https://student-expertise-collaboration-portal.onrender.com",
 });
 
 API.interceptors.request.use((req) => {

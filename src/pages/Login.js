@@ -66,48 +66,51 @@ return (
 
 <div className="login-container">
 
-<h1 className="main-title">
-Student Expertise and Collaboration Portal
-</h1>
+  <div className="login-inner">   {/* 🔥 NEW WRAPPER */}
 
-<div className="login-box">
+    <h1 className="main-title">
+      Student Expertise and Collaboration Portal
+    </h1>
 
-<h2>Login</h2>
+    <div className="login-box">
 
-<form onSubmit={handleSubmit}>
+      <h2>Login</h2>
 
-<input
-type="email"
-name="email"
-placeholder="Email"
-onChange={handleChange}
-required
-/>
+      <form onSubmit={handleSubmit}>
 
-<br /><br />
+        <input
+          type="email"
+          name="email"
+          placeholder="Email"
+          onChange={handleChange}
+          required
+        />
 
-<input
-type="password"
-name="password"
-placeholder="Password"
-onChange={handleChange}
-required
-/>
+        <br /><br />
 
-<br /><br />
+        <input
+          type="password"
+          name="password"
+          placeholder="Password"
+          onChange={handleChange}
+          required
+        />
 
-<button type="submit">Login</button>
+        <br /><br />
 
-</form>
+        <button type="submit">Login</button>
 
-<br />
+      </form>
 
-<p>
-Don't have an account?
-<Link to="/register">Register</Link>
-</p>
+      <br />
 
-</div>
+      <p>
+        Don't have an account? <Link to="/register">Register</Link>
+      </p>
+
+    </div>
+
+  </div>
 
 </div>
 
