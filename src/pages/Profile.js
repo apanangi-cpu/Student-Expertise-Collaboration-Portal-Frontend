@@ -3,237 +3,205 @@ import { useParams } from "react-router-dom";
 import API from "../services/api";
 
 function Profile() {
+  const { id } = useParams();
+  const [user, setUser] = useState(null);
+  const [showContact, setShowContact] = useState(false);
 
-const { id } = useParams();
-const [user, setUser] = useState(null);
+  useEffect(() => {
+    fetchProfile();
+  }, []);
 
-// 🔥 NEW STATE FOR POPUP
-const [showContact, setShowContact] = useState(false);
+  const fetchProfile = async () => {
+    try {
+      const res = await API.get(`/users/profile/${id}`);
+      setUser(res.data);
+    } catch (error) {
+      console.log("Error fetching profile");
+    }
+  };
 
-useEffect(() => {
-  fetchProfile();
-}, []);
+  if (!user) return <h2>Loading...</h2>;
 
-const fetchProfile = async () => {
-  try {
-    const res = await API.get(`/users/profile/${id}`);
-    setUser(res.data);
-  } catch (error) {
-    console.log("Error fetching profile");
-  }
-};
+  const currentProjects = user.projects?.filter(p => p.isCurrent) || [];
+  const completedProjects = user.projects?.filter(p => !p.isCurrent) || [];
 
-if (!user) return <h2>Loading...</h2>;
+  return (
+    <div style={{ padding: "40px" }}>
 
-const currentProjects = user.projects.filter(p => p.isCurrent);
-const completedProjects = user.projects.filter(p => !p.isCurrent);
+      <div style={{ display: "flex", alignItems: "center", gap: "30px" }}>
 
-return (
+        {/* ✅ FIXED IMAGE URL */}
+        {user.profilePhoto ? (
+          <img
+            src={`https://student-expertise-collaboration-portal.onrender.com/uploads/${user.profilePhoto}`}
+            alt="Profile"
+            style={{
+              width: "220px",
+              height: "220px",
+              objectFit: "cover",
+              borderRadius: "12px",
+              boxShadow: "0 4px 10px rgba(0,0,0,0.2)",
+              position: "absolute",
+              right: "50px",
+              top: "70px"
+            }}
+          />
+        ) : (
+          <img
+            src="https://cdn-icons-png.flaticon.com/512/149/149071.png"
+            alt="default"
+            style={{
+              width: "180px",
+              height: "180px",
+              borderRadius: "12px"
+            }}
+          />
+        )}
 
-<div style={{ padding: "40px" }}>
+        <h2>{user.fullName}</h2>
+      </div>
 
-<div style={{ display: "flex", alignItems: "center", gap: "30px" }}>
+      <p><strong>Department:</strong> {user.department}</p>
+      <p><strong>Year:</strong> {user.year}</p>
+      <p><strong>Availability:</strong> {user.availability}</p>
 
-{user.profilePhoto ? (
+      {user.currentlyWorkingOn && (
+        <p><strong>Currently Working On:</strong> {user.currentlyWorkingOn}</p>
+      )}
 
-<img
-src={`http://localhost:5000/uploads/${user.profilePhoto}`}
-alt="Profile"
-style={{
-width: "220px",
-height: "220px",
-objectFit: "cover",
-borderRadius: "12px",
-boxShadow: "0 4px 10px rgba(0,0,0,0.2)",
-position: "absolute",
-right: "50px",
-top:"70px"
-}}
-/>
+      <h3>Skills</h3>
+      <ul>
+        {user.skills?.map((skill, index) => (
+          <li key={index}>{skill}</li>
+        ))}
+      </ul>
 
-) : (
+      <button
+        onClick={() => setShowContact(true)}
+        style={{
+          marginTop: "10px",
+          padding: "8px 15px",
+          borderRadius: "5px",
+          cursor: "pointer"
+        }}
+      >
+        Contact
+      </button>
 
-<div
-style={{
-width: "180px",
-height: "180px",
-backgroundColor: "#ddd",
-alignItems: "center",
-justifyContent: "center",
-borderRadius: "12px"
-}}
->
-No Image
-</div>
+      <hr />
 
-)}
+      <h3>Current Projects</h3>
+      {currentProjects.map(project => (
+        <div
+          key={project._id}
+          style={{
+            border: "1px solid gray",
+            padding: "10px",
+            marginBottom: "10px",
+            borderRadius: "6px"
+          }}
+        >
+          <h4>{project.title}</h4>
+          <p>{project.description}</p>
+          <p><strong>Tech:</strong> {project.technologies.join(", ")}</p>
 
-<h2>{user.fullName}</h2>
+          {project.githubLink && (
+            <p>
+              <strong>GitHub:</strong>{" "}
+              <a href={project.githubLink} target="_blank" rel="noopener noreferrer">
+                View Code
+              </a>
+            </p>
+          )}
 
-</div>
+          {project.demoLink && (
+            <p>
+              <strong>Demo:</strong>{" "}
+              <a href={project.demoLink} target="_blank" rel="noopener noreferrer">
+                Live Demo
+              </a>
+            </p>
+          )}
+        </div>
+      ))}
 
-<p><strong>Department:</strong> {user.department}</p>
-<p><strong>Year:</strong> {user.year}</p>
-<p><strong>Availability:</strong> {user.availability}</p>
+      <h3>Completed Projects</h3>
+      {completedProjects.map(project => (
+        <div
+          key={project._id}
+          style={{
+            border: "1px solid gray",
+            padding: "10px",
+            marginBottom: "10px",
+            borderRadius: "6px"
+          }}
+        >
+          <h4>{project.title}</h4>
+          <p>{project.description}</p>
+          <p><strong>Tech:</strong> {project.technologies.join(", ")}</p>
 
-{user.currentlyWorkingOn && (
-<p><strong>Currently Working On:</strong> {user.currentlyWorkingOn}</p>
-)}
+          {project.githubLink && (
+            <p>
+              <strong>GitHub:</strong>{" "}
+              <a href={project.githubLink} target="_blank" rel="noopener noreferrer">
+                View Code
+              </a>
+            </p>
+          )}
 
-<h3>Skills</h3>
+          {project.demoLink && (
+            <p>
+              <strong>Demo:</strong>{" "}
+              <a href={project.demoLink} target="_blank" rel="noopener noreferrer">
+                Live Demo
+              </a>
+            </p>
+          )}
+        </div>
+      ))}
 
-<ul>
-{user.skills && user.skills.map((skill, index) => (
-<li key={index}>{skill}</li>
-))}
-</ul>
+      {/* POPUP */}
+      {showContact && (
+        <div style={{
+          position: "fixed",
+          top: 0,
+          left: 0,
+          width: "100%",
+          height: "100%",
+          background: "rgba(0,0,0,0.5)",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center"
+        }}>
+          <div style={{
+            background: "white",
+            padding: "25px",
+            borderRadius: "12px",
+            width: "350px",
+            textAlign: "center"
+          }}>
+            <h3>Contact Details</h3>
+            <p><strong>Email:</strong> {user.email}</p>
+            <p><strong>Phone:</strong> {user.phone}</p>
 
-{/* 🔥 UPDATED BUTTON */}
-<button
-onClick={() => setShowContact(true)}
-style={{
-marginTop: "10px",
-padding: "8px 15px",
-borderRadius: "5px",
-cursor: "pointer"
-}}
->
-Contact
-</button>
-
-<hr />
-
-<h3>Current Projects</h3>
-
-{currentProjects.map(project => (
-
-<div
-key={project._id}
-style={{
-border: "1px solid gray",
-padding: "10px",
-marginBottom: "10px",
-borderRadius: "6px"
-}}
->
-
-<h4>{project.title}</h4>
-<p>{project.description}</p>
-<p><strong>Tech:</strong> {project.technologies.join(", ")}</p>
-
-{project.githubLink && (
-<p>
-<strong>GitHub:</strong>{" "}
-<a href={project.githubLink} target="_blank" rel="noopener noreferrer">
-View Code
-</a>
-</p>
-)}
-
-{project.demoLink && (
-<p>
-<strong>Demo:</strong>{" "}
-<a href={project.demoLink} target="_blank" rel="noopener noreferrer">
-Live Demo
-</a>
-</p>
-)}
-
-</div>
-
-))}
-
-<h3>Completed Projects</h3>
-
-{completedProjects.map(project => (
-
-<div
-key={project._id}
-style={{
-border: "1px solid gray",
-padding: "10px",
-marginBottom: "10px",
-borderRadius: "6px"
-}}
->
-
-<h4>{project.title}</h4>
-<p>{project.description}</p>
-<p><strong>Tech:</strong> {project.technologies.join(", ")}</p>
-
-{project.githubLink && (
-<p>
-<strong>GitHub:</strong>{" "}
-<a href={project.githubLink} target="_blank" rel="noopener noreferrer">
-View Code
-</a>
-</p>
-)}
-
-{project.demoLink && (
-<p>
-<strong>Demo:</strong>{" "}
-<a href={project.demoLink} target="_blank" rel="noopener noreferrer">
-Live Demo
-</a>
-</p>
-)}
-
-</div>
-
-))}
-
-{/* 🔥 BEAUTIFUL POPUP MODAL */}
-{showContact && (
-<div style={{
-  position: "fixed",
-  top: 0,
-  left: 0,
-  width: "100%",
-  height: "100%",
-  background: "rgba(0,0,0,0.5)",
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center"
-}}>
-
-  <div style={{
-    background: "white",
-    padding: "25px",
-    borderRadius: "12px",
-    width: "350px",
-    textAlign: "center",
-    boxShadow: "0 10px 25px rgba(0,0,0,0.2)"
-  }}>
-
-    <h3>Contact Details</h3>
-
-    <p><strong>Email:</strong> {user.email}</p>
-    <p><strong>Phone:</strong> {user.phone}</p>
-
-    <button
-      onClick={() => setShowContact(false)}
-      style={{
-        marginTop: "15px",
-        background: "#2563eb",
-        color: "white",
-        border: "none",
-        padding: "8px 16px",
-        borderRadius: "6px",
-        cursor: "pointer"
-      }}
-    >
-      Close
-    </button>
-
-  </div>
-
-</div>
-)}
-
-</div>
-
-);
+            <button
+              onClick={() => setShowContact(false)}
+              style={{
+                marginTop: "15px",
+                background: "#2563eb",
+                color: "white",
+                padding: "8px 16px",
+                borderRadius: "6px",
+                cursor: "pointer"
+              }}
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      )}
+    </div>
+  );
 }
 
 export default Profile;
