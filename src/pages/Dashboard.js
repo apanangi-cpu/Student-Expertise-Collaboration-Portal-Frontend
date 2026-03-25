@@ -403,7 +403,7 @@
 
 import React, { useEffect, useState } from "react";
 import API from "../services/api";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom"; 
 
 function Dashboard() {
   const [user, setUser] = useState(null);
@@ -552,7 +552,7 @@ function Dashboard() {
         <div style={{ marginRight: "80px" }}>
           {user.profilePhoto ? (
             <img
-              src={`http://localhost:5000/uploads/${user.profilePhoto}`}
+              src={`https://student-expertise-collaboration-portal.onrender.com/uploads/${user.profilePhoto}`}
               alt="Profile"
               style={{
                 width: "300px",
